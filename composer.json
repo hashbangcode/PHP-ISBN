@@ -1,0 +1,29 @@
+{
+    "name": "philipnorton42/isbn",
+    "type": "library",
+    "description": "PHP ISBN Library",
+    "keywords": [
+        "ISBN",
+        "ISBN-10",
+        "ISBN-13"
+    ],
+    "homepage": "https://bitbucket.org/philipnorton42/php-isbn",
+    "license": "AGPL-3.0",
+    "authors": [
+        {
+            "name": "Philip Norton",
+            "email": "philipnorton42@gmail.com",
+            "role": "lead",
+            "homepage": "http://www.hashbangcode.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-4": {"Isbn\\": "src/"}
+    }
+}
