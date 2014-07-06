@@ -109,9 +109,9 @@ class Book {
     $this->title = $title;
   }
 
-  public function __construct($title, $publisher, $isbn = '') {
+  public function __construct($title, $isbn = '') {
     $this->setTitle($title);
-    $this->setPublisher($publisher);
+
     if ($isbn !== '') {
       $this->setIsbn($isbn);
     }
