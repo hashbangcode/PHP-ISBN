@@ -24,7 +24,7 @@ class AmazonTest extends PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('Isbn\Isbn\Lookup\Service\Amazon', $amazon);
   }
 
-  public function testAmazonResults() {
+  public function testGetaDataResults() {
     $isbn = '9781405268424';
     $amazon = new Amazon($this->amazonAccessKeyID, $this->amazonSecretKey, $this->amazonAssociateTag);
     $books = $amazon->getMetadataFromIsbn($isbn);
@@ -32,7 +32,7 @@ class AmazonTest extends PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('Isbn\Book', $books[0]);
   }
   
-  public function testAmazonError() {
+  public function testServiceError() {
     $isbn = 'ds9f86asdofyhlasdfyo8sdy7f';
     $amazon = new Amazon($this->amazonAccessKeyID, $this->amazonSecretKey, $this->amazonAssociateTag);
     $book = $amazon->getMetadataFromIsbn($isbn);
