@@ -2,13 +2,20 @@
 
 namespace Isbn\Isbn\Lookup\Service;
 
+/**
+ * Class Amazon
+ *
+ * Uses the Amazon associate API to find information about a book.
+ *
+ * Perhaps the most complete ISBN lookup service available.
+ *
+ * @package Isbn\Isbn\Lookup\Service
+ */
 class Amazon extends Service {
 
   protected $amazonAccessKeyID;
   protected $amazonSecretKey;
   protected $amazonAssociateTag;
-  protected $errors;
-  protected $rawData;
 
   public function __construct($amazonAccessKeyID, $amazonSecretKey, $amazonAssociateTag) {
 
@@ -17,37 +24,6 @@ class Amazon extends Service {
     $this->amazonAssociateTag = $amazonAssociateTag;
 
     parent::__construct();
-  }
-
-  /**
-   * Store an error for later retrival.
-   *
-   * @param string $code The error code.
-   * @param string $message The error message.
-   */
-  public function setError($code, $message) {
-    $this->errors[] = array(
-      'code' => $code,
-      'message' => $message
-    );
-  }
-
-  /**
-   * Returns the errors property.
-   *
-   * @return array The error property.
-   */
-  public function getErrors() {
-    return $this->errors;
-  }
-
-  /**
-   * Returns the raw data from the last request.
-   *
-   * @return string The raw data.
-   */
-  public function getRawData() {
-    return $this->rawData;
   }
 
   /**
@@ -223,7 +199,8 @@ class Amazon extends Service {
           }
         }
 
-        $book = new \Isbn\Book($title, $publisher, $isbn);
+        $book = new \Isbn\Book($title, $isbn);
+        $book->setPublisher($publisher);
         $book->setPublicationDate($publicationDate);
         $book->setAuthor($author);
         $book->setPages($pages);
