@@ -8,12 +8,15 @@
          stopOnFailure="false"
          syntaxCheck="false"
 >
+
   <php>    
-    <var name="amazonAccessKeyID" value=""/>
-    <var name="amazonSecretKey" value=""/>
+    <var name="amazonAccessKeyID" value="" />
+    <var name="amazonSecretKey" value="" />
     <var name="amazonAssociateTag" value="" />
-  </php>  
-  
+
+    <var name="libraryThingDeveloperKey" value="" />
+  </php>
+
     <testsuites>
         <testsuite name="Isbn">
             <directory>test</directory>
