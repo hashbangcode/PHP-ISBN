@@ -6,10 +6,8 @@ abstract class ServiceTestCase extends PHPUnit_Framework_TestCase {
     return array(
       array('9780552167758'),
       array('9781743007419'),
-      array('9780857633026'),
       array('9780752488110'),
       array('9781848317260'),
-      array('9781607069676'),
       array('9781781855898'),
       array('9780007424832'),
       array('9781444000177'),
