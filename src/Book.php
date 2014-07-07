@@ -4,22 +4,22 @@ namespace Isbn;
 
 class Book {
 
-  protected $imageSmall;
-  protected $imageMedium;
-  protected $imageLarge;
-  protected $author;
-  protected $ean;
-  protected $isbn;
-  protected $dimensions = array(
+  public $imageSmall;
+  public $imageMedium;
+  public $imageLarge;
+  public $authors = array();
+  public $ean;
+  public $isbn;
+  public $dimensions = array(
     'height' => 0,
     'length' => 0,
     'width' => 0,
     'weight' => 0
   );
-  protected $pages = 0;
-  protected $publicationDate;
-  protected $publisher;
-  protected $title;
+  public $pages = 0;
+  public $publicationDate;
+  public $publisher;
+  public $title;
 
   public function getImageSmall() {
     return $this->imageSmall;
@@ -33,8 +33,8 @@ class Book {
     return $this->imageLarge;
   }
 
-  public function getAuthor() {
-    return $this->author;
+  public function getAuthors() {
+    return $this->authors;
   }
 
   public function getEan() {
@@ -78,7 +78,11 @@ class Book {
   }
 
   public function setAuthor($author) {
-    $this->author = $author;
+    $this->authors[] = $author;
+  }
+
+  public function setAuthors($authors) {
+    $this->authors = $authors;
   }
 
   public function setEan($ean) {
@@ -116,21 +120,21 @@ class Book {
       $this->setIsbn($isbn);
     }
   }
-  
+
   public function printDimensions() {
     $output = '';
-    
+
     $dimensions = $this->getDimensions();
-    
+
     $output .= "\t" . 'Height: ' . $dimensions['height'] . PHP_EOL;
     $output .= "\t" . 'Length: ' . $dimensions['length'] . PHP_EOL;
     $output .= "\t" . 'Width: ' . $dimensions['width'] . PHP_EOL;
-    $output .= "\t" . 'Weight: ' . $dimensions['weight']; 
+    $output .= "\t" . 'Weight: ' . $dimensions['weight'];
     return $output;
   }
 
   public function printImageAttributes($property) {
-     $output = '';
+    $output = '';
     $output .= "\t" . 'URL: ' . $property['url'] . PHP_EOL;
     $output .= "\t" . 'Height: ' . $property['height'] . PHP_EOL;
     $output .= "\t" . 'Width: ' . $property['width'];
@@ -141,14 +145,17 @@ class Book {
     $output = '';
     $output .= 'BOOK:' . PHP_EOL;
     $output .= 'Title: ' . $this->getTitle() . PHP_EOL;
+
+    $output .= 'Author' . ((count($this->authors) > 1) ? 's' : '') . ': ' . implode(', ', $this->getAuthors()) . PHP_EOL;
+
     $output .= 'Publisher: ' . $this->getPublisher() . PHP_EOL;
     $output .= 'Publication Date: ' . $this->getPublicationDate() . PHP_EOL;
     $output .= 'ISBN: ' . $this->getIsbn() . PHP_EOL;
     $output .= 'Pages: ' . $this->getPages() . PHP_EOL;
-    $output .= 'Dimentions: ' . PHP_EOL . $this->printDimensions() . PHP_EOL;    
-    $output .= 'Large Image: ' . PHP_EOL . $this->printImageAttributes($this->getImageLarge()) . PHP_EOL;    
-    $output .= 'Medium Image: ' . PHP_EOL . $this->printImageAttributes($this->getImageMedium()) . PHP_EOL;    
-    $output .= 'Small Image: ' . PHP_EOL . $this->printImageAttributes($this->getImageSmall()) . PHP_EOL;    
+    $output .= 'Dimentions: ' . PHP_EOL . $this->printDimensions() . PHP_EOL;
+    $output .= 'Large Image: ' . PHP_EOL . $this->printImageAttributes($this->getImageLarge()) . PHP_EOL;
+    $output .= 'Medium Image: ' . PHP_EOL . $this->printImageAttributes($this->getImageMedium()) . PHP_EOL;
+    $output .= 'Small Image: ' . PHP_EOL . $this->printImageAttributes($this->getImageSmall()) . PHP_EOL;
     return $output;
   }
 }
