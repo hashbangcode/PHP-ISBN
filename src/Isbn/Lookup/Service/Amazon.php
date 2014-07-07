@@ -36,6 +36,11 @@ class Amazon extends Service {
     // Reset errors.
     $this->errors = array();
 
+    $books = $this->cache->get('amazon'. $isbn);
+    if (!is_null($books)) {
+      return unserialize($books);
+    }
+
     $books = array();
 
 
@@ -214,7 +219,8 @@ class Amazon extends Service {
       }
     }
 
-
+    $this->cache->set('amazon' . $isbn, serialize($books));
+    
     return $books;
   }
 

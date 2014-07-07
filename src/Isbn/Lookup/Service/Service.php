@@ -1,12 +1,18 @@
 <?php
 namespace Isbn\Isbn\Lookup\Service;
 
+use Gregwar\Cache\Cache;
+
 abstract class Service implements ServiceInterface {
   protected $errors;
   protected $rawData;
+  
+  protected $cache;
 
   public function __construct() {
-    
+    $this->cache = new Cache;
+    $this->cache->setCacheDirectory('cache');
+    $this->cache->setPrefixSize(0);
   }
 
 

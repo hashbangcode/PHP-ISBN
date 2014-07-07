@@ -28,9 +28,13 @@ class OpenLibrary extends Service
    */
   public function getMetadataFromIsbn($isbn)
   {
-
     // Reset errors.
     $this->errors = array();
+
+    $books = $this->cache->get('openlibrary'. $isbn);
+    if (!is_null($books)) {
+      return unserialize($books);
+    }
 
     $books = array();
 
@@ -63,6 +67,8 @@ class OpenLibrary extends Service
 
     $books[] = $book;
 
+    $this->cache->set('openlibrary' . $isbn, serialize($books));    
+    
     return $books;
   }
 

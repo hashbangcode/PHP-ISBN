@@ -23,9 +23,14 @@ class Oclc extends Service {
    * @return boolean|\Isbn\Book
    */
   public function getMetadataFromIsbn($isbn) {
-
+    
     // Reset errors.
     $this->errors = array();
+
+    $books = $this->cache->get('oclc'. $isbn);
+    if (!is_null($books)) {
+      return unserialize($books);
+    }
 
     $books = array();
 
@@ -42,8 +47,6 @@ class Oclc extends Service {
     $xml->loadXML($this->rawData);
 
     $rsp = $xml->getElementsByTagName('rsp');
-
-    //var_dump($metadata);
 
     foreach ($rsp as $item) {
 
@@ -62,7 +65,9 @@ class Oclc extends Service {
       $books[] = $book;
       }
     }
-
+     
+    $this->cache->set('oclc' . $isbn, serialize($books));
+    
     return $books;
   }
 
