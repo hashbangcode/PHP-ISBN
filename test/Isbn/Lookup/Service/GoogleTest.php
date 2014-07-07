@@ -2,21 +2,30 @@
 
 use Isbn\Isbn\Lookup\Service\Google;
 
-class GoogleTest extends PHPUnit_Framework_TestCase {
+require_once('ServiceTestCase.php');
 
+class GoogleTest extends ServiceTestCase {
+
+  
   protected function setUp() {
   }
 
   public function testCreation() {
+    
     $google = new Google();
     $this->assertInstanceOf('Isbn\Isbn\Lookup\Service\Google', $google);
   }
 
-  public function testGetaDataResults() {
-    $isbn = '9781405268424';
+  /**
+   * @dataProvider isbnNumbersProvider
+   */
+  public function testGetaDataResults($isbn) {
+
     $google = new Google();
     $books = $google->getMetadataFromIsbn($isbn);
+        
     $this->assertTrue(is_array($books));
     $this->assertInstanceOf('Isbn\Book', $books[0]);
+    
   }
 }

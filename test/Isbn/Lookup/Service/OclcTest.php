@@ -2,7 +2,9 @@
 
 use Isbn\Isbn\Lookup\Service\Oclc;
 
-class OclcTest extends PHPUnit_Framework_TestCase {
+require_once('ServiceTestCase.php');
+
+class OclcTest extends ServiceTestCase {
 
   protected function setUp() {
   }
@@ -16,6 +18,9 @@ class OclcTest extends PHPUnit_Framework_TestCase {
     $isbn = '9781405268424';
     $oclc = new Oclc();
     $books = $oclc->getMetadataFromIsbn($isbn);
+    
+    print_r($books);
+    
     $this->assertTrue(is_array($books));
     $this->assertInstanceOf('Isbn\Book', $books[0]);
   }

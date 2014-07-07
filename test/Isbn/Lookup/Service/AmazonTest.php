@@ -2,7 +2,9 @@
 
 use Isbn\Isbn\Lookup\Service\Amazon;
 
-class AmazonTest extends PHPUnit_Framework_TestCase {
+require_once('ServiceTestCase.php');
+
+class AmazonTest extends ServiceTestCase {
 
   protected $amazonAccessKeyID;
   protected $amazonSecretKey;

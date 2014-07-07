@@ -2,7 +2,9 @@
 
 use Isbn\Isbn\Lookup\Service\OpenLibrary;
 
-class OpenLibraryTest extends PHPUnit_Framework_TestCase {
+require_once('ServiceTestCase.php');
+
+class OpenLibraryTest extends ServiceTestCase {
 
   protected function setUp() {
   }
