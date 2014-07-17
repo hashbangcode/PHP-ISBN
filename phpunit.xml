@@ -15,6 +15,9 @@
     <var name="amazonAssociateTag" value="" />
 
     <var name="libraryThingDeveloperKey" value="" />
+    
+    <var name="nielsenClientId" value="" />
+    <var name="nielsenPassword" value="" />
   </php>
 
     <testsuites>
