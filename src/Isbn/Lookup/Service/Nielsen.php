@@ -14,9 +14,15 @@ namespace Isbn\Isbn\Lookup\Service;
 class Nielsen extends Service
 {
 
-  public function __construct()
+  protected $clientId = '';
+  protected $password = '';
+  
+  public function __construct($clientId, $password)
   {
 
+    $this->clientId = $clientId;
+    $this->password = $password;
+    
     parent::__construct();
   }
 
@@ -30,15 +36,25 @@ class Nielsen extends Service
     // Reset errors.
     $this->errors = array();
 
-    $books = $this->cache->get('openlibrary'. $isbn);
+    /*$books = $this->cache->get('nielsen'. $isbn);
     if (!is_null($books)) {
       return unserialize($books);
-    }
+    }*/
 
     $books = array();
 
-    $url = 'https://openlibrary.org/api/books?bibkeys=ISBN:' . $isbn . '&format=json&jscmd=data';
+    $url = 'http://ws.nielsenbookdataonline.com/BDOLRest/RESTwebServices/BDOLrequest?clientId=' . $this->clientId . '&password=' . $this->password;
 
+    $url .= '&from=0';
+    $url .= '&to=20';    
+    
+    $url .= '&indexType=0';
+    $url .= '&format=7';
+    $url .= '&resultView=2';
+    
+    $url .= '&field0=1';
+    $url .= '$value0='. $isbn;
+    
     $this->rawData = file_get_contents($url);
 
     if ($this->rawData === false) {
@@ -47,7 +63,11 @@ class Nielsen extends Service
     }
 
     $data = json_decode($this->rawData);
-
+    
+    print_r($data);
+    
+    
+/*
     $parameter = 'ISBN:' . $isbn;
 
     if (!isset($data->$parameter)) {
@@ -63,10 +83,10 @@ class Nielsen extends Service
     $book->setImageLarge($data->cover->large);
     $book->setImageMedium($data->cover->medium);
     $book->setImageSmall($data->cover->medium);
-
+*/
     $books[] = $book;
 
-    $this->cache->set('openlibrary' . $isbn, serialize($books));    
+    $this->cache->set('nielsen' . $isbn, serialize($books));    
     
     return $books;
   }
