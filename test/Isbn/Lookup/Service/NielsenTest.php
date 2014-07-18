@@ -16,15 +16,18 @@ class NielsenTest extends ServiceTestCase {
 
   public function testCreation() {
     $nielsen = new Nielsen($this->clientId, $this->password);
-    $this->assertInstanceOf('Isbn\Isbn\Lookup\Service\Nielsen', $Nielsen);
+    $this->assertInstanceOf('Isbn\Isbn\Lookup\Service\Nielsen', $nielsen);
   }
 
   public function testGetaDataResults() {
 
-    $isbn = '0312932081';
+    $isbn = '9781405268424';
     $nielsen = new Nielsen($this->clientId, $this->password);
+    
     $books = $nielsen->getMetadataFromIsbn($isbn);
+
     $this->assertTrue(is_array($books));
     $this->assertInstanceOf('Isbn\Book', $books[0]);
+    $this->assertEquals($isbn, $books[0]->getIsbn());
   }
 }
