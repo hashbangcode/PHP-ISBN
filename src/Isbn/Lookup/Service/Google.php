@@ -53,8 +53,6 @@ class Google extends Service {
     }
 
     $this->rawData = file_get_contents($url);
-
-    var_dump($this->rawData);    
     
     if ($this->rawData === false) {
       $this->setError('-1', 'Communication error.');
