@@ -89,7 +89,10 @@ class Nielsen extends Service {
     $imageData = $xml->getElementsByTagName('data');
 
     $book = new \Isbn\Book('', $isbn);
-    $book->setImageLarge($imageData->item(0)->nodeValue);
+    $image = array(
+      'base64' => $imageData->item(0)->nodeValue
+    );
+    $book->setImageLarge($image);
 
     $books[] = $book;
 
