@@ -19,9 +19,8 @@ class OclcTest extends ServiceTestCase {
     $oclc = new Oclc();
     $books = $oclc->getMetadataFromIsbn($isbn);
     
-    print_r($books);
-    
     $this->assertTrue(is_array($books));
     $this->assertInstanceOf('Isbn\Book', $books[0]);
+    $this->assertEquals($isbn, $books[0]->getIsbn());    
   }
 }

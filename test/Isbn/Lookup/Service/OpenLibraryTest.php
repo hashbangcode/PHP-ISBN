@@ -21,5 +21,6 @@ class OpenLibraryTest extends ServiceTestCase {
     $books = $openLibrary->getMetadataFromIsbn($isbn);
     $this->assertTrue(is_array($books));
     $this->assertInstanceOf('Isbn\Book', $books[0]);
+    $this->assertEquals($isbn, $books[0]->getIsbn());    
   }
 }

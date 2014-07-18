@@ -32,6 +32,7 @@ class AmazonTest extends ServiceTestCase {
     $books = $amazon->getMetadataFromIsbn($isbn);
     $this->assertTrue(is_array($books));
     $this->assertInstanceOf('Isbn\Book', $books[0]);
+    $this->assertEquals($isbn, $books[0]->getIsbn());    
   }
   
   public function testServiceError() {

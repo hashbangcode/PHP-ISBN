@@ -26,6 +26,6 @@ class GoogleTest extends ServiceTestCase {
         
     $this->assertTrue(is_array($books));
     $this->assertInstanceOf('Isbn\Book', $books[0]);
-    
+    $this->assertEquals($isbn, $books[0]->getIsbn());
   }
 }
