@@ -19,15 +19,20 @@ class NielsenTest extends ServiceTestCase {
     $this->assertInstanceOf('Isbn\Isbn\Lookup\Service\Nielsen', $nielsen);
   }
 
-  public function testGetaDataResults() {
+  /**
+   * @dataProvider isbnNumbersProvider
+   */
+  public function testGetaDataResults($isbn) {
 
-    $isbn = '9781405268424';
     $nielsen = new Nielsen($this->clientId, $this->password);
     
     $books = $nielsen->getMetadataFromIsbn($isbn);
-
+   
     $this->assertTrue(is_array($books));
     $this->assertInstanceOf('Isbn\Book', $books[0]);
     $this->assertEquals($isbn, $books[0]->getIsbn());
+    
+    // Optionally save the image data out (to the cache directory)
+    // $books[0]->convertBase64Image('./cache/images');
   }
 }
