@@ -121,6 +121,20 @@ class Book {
     }
   }
 
+  /**
+   * Convert base64 encoded image into a real image.
+   *
+   * @param string $directory The directory to save the image to.
+   */
+  public function convertBase64Image($directory) {
+    $ifp = fopen($directory . '/' . $this->isbn . '.jpg', "wb"); 
+    
+    $base64String = $this->getImageLarge()['base64'];
+    
+    fwrite($ifp, base64_decode($base64String));
+    fclose($ifp);
+  }
+  
   public function printDimensions() {
     $output = '';
 
@@ -135,9 +149,9 @@ class Book {
 
   public function printImageAttributes($property) {
     $output = '';
-    $output .= "\t" . 'URL: ' . $property['url'] . PHP_EOL;
-    $output .= "\t" . 'Height: ' . $property['height'] . PHP_EOL;
-    $output .= "\t" . 'Width: ' . $property['width'];
+    $output .= "\t" . 'URL: ' . (isset($property['url']) ? $property['url'] : '') . PHP_EOL;
+    $output .= "\t" . 'Height: ' . (isset($property['height']) ? $property['height'] : '') . PHP_EOL;
+    $output .= "\t" . 'Width: ' . (isset($property['width']) ? $property['width'] : '');
     return $output;
   }
 
