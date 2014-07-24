@@ -79,7 +79,9 @@ class Google extends Service {
         $book->setPublisher($item->volumeInfo->publisher);
       }
 
-      $book->setPublicationDate($item->volumeInfo->publishedDate);
+      if (isset($item->volumeInfo->publishedDate)) {
+        $book->setPublicationDate($item->volumeInfo->publishedDate);
+      }
       
       if (isset($item->volumeInfo->authors)) {
         foreach ($item->volumeInfo->authors as $author) {
