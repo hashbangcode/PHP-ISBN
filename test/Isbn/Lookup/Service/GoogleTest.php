@@ -28,4 +28,29 @@ class GoogleTest extends ServiceTestCase {
     $this->assertInstanceOf('Isbn\Book', $books[0]);
     $this->assertEquals($isbn, $books[0]->getIsbn());
   }
+  
+  public function testGetaDataResultsCacheDirChange() {
+
+    $isbn = '9780552167758';
+    
+    // Set the new cache directory location
+    $settings = \Isbn\Settings::getInstance();
+    $settings->setCacheDirectory('testcache');
+        
+    // Fill the cache with something (run a service)
+    $google = new Google();
+    $books = $google->getMetadataFromIsbn($isbn);
+    
+    // Check that the data we have from our service call is good.
+    $this->assertTrue(is_array($books));
+    $this->assertInstanceOf('Isbn\Book', $books[0]);
+    $this->assertEquals($isbn, $books[0]->getIsbn());
+    
+    // Assert directory exists.
+    $this->assertTrue(file_exists('testcache'));
+    
+    // Remove the new cache location.
+    unlink('testcache/google9780552167758');
+    rmdir('testcache');
+  }  
 }
