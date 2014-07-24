@@ -10,8 +10,11 @@ abstract class Service implements ServiceInterface {
   protected $cache;
 
   public function __construct() {
+    
+    $settings = \Isbn\Settings::getInstance();
+    
     $this->cache = new Cache;
-    $this->cache->setCacheDirectory('cache');
+    $this->cache->setCacheDirectory($settings->getCacheDirectory());
     $this->cache->setPrefixSize(0);
   }
 
