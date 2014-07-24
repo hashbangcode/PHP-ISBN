@@ -239,6 +239,7 @@ class ValidateTest extends PHPUnit_Framework_TestCase {
       array('8881837188', true),
       array('8881837187', false),
       array('9788889527191', true),
+      array('ISBN', false)
     );
   }
 
