@@ -18,7 +18,7 @@ class Format {
         break;
       case self::ISBN_FORMAT_SPACES:
         $isbn = $this->normalise($isbn);
-        return $this->addSpaces($isbn);        
+        return $this->addSpaces($isbn);
         break;
     }
   }
@@ -35,20 +35,28 @@ class Format {
     $this->getPublicationElement();
     $this->getCheckDigit();
     return implode(' ', $this->isbnSplit);
-  }  
-  
+  }
+
   private function getPublicationElement() {
     $this->isbnSplit[3] = substr($this->isbn, $this->parsed(), -1);
   }
 
   private function getCheckDigit() {
     $this->isbnSplit[4] = substr($this->isbn, -1);
-  }  
-  
+  }
+
   public function normalise($isbn) {
-    $isbn = str_replace(" ", "", $isbn);
-    $isbn = str_replace("-", "", $isbn);
-    return $isbn;
+    $isbn = trim($isbn);
+
+    $x_is_present = false;
+    
+    if (strtolower(substr($isbn, -1)) == 'x') {
+      $x_is_present = true;
+    }
+
+    $isbn = preg_replace('/[^0-9]/', '', $isbn);
+
+    return $isbn . (($x_is_present === true && strlen($isbn) < 13) ? 'X' : '');
   }
 
   public function addHyphens($isbn) {
