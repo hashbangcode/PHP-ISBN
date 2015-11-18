@@ -6,13 +6,13 @@ use Gregwar\Cache\Cache;
 abstract class Service implements ServiceInterface {
   protected $errors;
   protected $rawData;
-  
+
   protected $cache;
 
   public function __construct() {
-    
+
     $settings = \Isbn\Settings::getInstance();
-    
+
     $this->cache = new Cache;
     $this->cache->setCacheDirectory($settings->getCacheDirectory());
     $this->cache->setPrefixSize(0);
@@ -25,11 +25,17 @@ abstract class Service implements ServiceInterface {
    * @param string $code The error code.
    * @param string $message The error message.
    */
-  public function setError($code, $message) {
-    $this->errors[] = array(
+  public function setError($code, $message, $information = FALSE) {
+    $error = array(
       'code' => $code,
-      'message' => $message
+      'message' => $message,
     );
+
+    if ($information !== FALSE) {
+      $error['informaiton'] = $information;
+    }
+
+    $this->errors[] = $error;
   }
 
   /**
