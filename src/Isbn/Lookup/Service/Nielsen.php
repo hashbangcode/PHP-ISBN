@@ -56,7 +56,7 @@ class Nielsen extends Service {
     $this->rawData = file_get_contents($url);
 
     if ($this->rawData === false) {
-      $this->setError('-1', 'Communication error.');
+      $this->setError('-1', 'Communication error, could not connect to : ' . $url);
       return false;
     }
 
@@ -73,7 +73,7 @@ class Nielsen extends Service {
         $this->setError($resultCode, 'SERVICE_UNAVAILABLE');
         return false;
       case '02':
-        $this->setError($resultCode, 'INVALID_LOGON');
+        $this->setError($resultCode, 'INVALID_LOGON', $url);
         return false;
       case '03':
         $this->setError($resultCode, 'SERVER_ERROR');
